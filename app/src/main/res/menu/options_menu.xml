@@ -1,0 +1,5 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/compileAll" android:title="Compile All"/>
+    <item android:id="@+id/deleteNotebook" android:title="Delete Notebook"/>
+    <!-- ... other items ... -->
+</menu>

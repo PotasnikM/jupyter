@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/CellStyle"
+    android:background="@drawable/rounded_edittext_bg"
+    android:elevation="7dp"
+    android:padding="16dp">
+
+
+    <EditText
+        android:id="@+id/codeInput"
+        android:layout_width="295dp"
+        android:layout_height="wrap_content"
+        android:background="@color/lightGray"
+        android:elevation="5dp"
+        android:hint="Enter your code here..."
+        android:maxWidth="100dp"
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/runIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/codeInput"
+        android:padding="14dp"
+        android:src="@drawable/round_play_circle_24"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="run"/>
+
+
+
+</RelativeLayout>

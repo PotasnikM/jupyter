@@ -1,0 +1,19 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/CellStyle"
+    android:background="@color/darkGray"
+    android:elevation="7dp"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/textInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CellEditTextStyle"
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:textSize="14sp"
+        android:hint="Enter your text here..."/>
+
+</RelativeLayout>

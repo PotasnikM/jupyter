@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Orange border for when cell is clicked or focused -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke android:width="2dp" android:color="@color/orange"/>
+            <solid android:color="@color/lightGray"/>
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+</layer-list>
