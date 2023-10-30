@@ -14,6 +14,7 @@
         android:minHeight="48dp"
         android:padding="8dp"
         android:textSize="14sp"
-        android:hint="Enter your text here..."/>
+        android:hint="Enter your text here..."
+        android:textColorHint="@color/lighterGray"/>
 
 </RelativeLayout>

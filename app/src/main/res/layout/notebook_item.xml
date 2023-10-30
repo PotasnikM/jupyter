@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/notebook_item_bg"
+    android:orientation="horizontal"
+    android:elevation="5dp"
+    android:layout_margin="7dp"
+    android:gravity="center_vertical">
+
+    <!-- Orange line on the left -->
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/orange"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:id="@+id/notebook_name"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Notebook Name"
+        android:textColor="@color/lighterGray"
+        android:textSize="20sp"
+        android:gravity="center_vertical" />
+
+</LinearLayout>

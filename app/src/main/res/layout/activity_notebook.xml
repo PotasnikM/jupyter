@@ -24,7 +24,8 @@
                 android:id="@+id/menuButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/round_menu_24"
+                android:background="@color/darkGray"
+                android:src="@drawable/round_arrow_back_24"
                 android:contentDescription="menu" />
 
             <!-- Spacer -->
@@ -36,8 +37,9 @@
             <!-- Right Drop-down Button -->
             <ImageButton
                 android:id="@+id/optionsButton"
-                android:layout_width="wrap_content"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
+                android:background="@color/darkGray"
                 android:src="@drawable/round_settings_24"
                 android:contentDescription="settings" />
         </LinearLayout>

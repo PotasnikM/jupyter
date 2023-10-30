@@ -18,7 +18,8 @@
         android:minHeight="48dp"
         android:padding="8dp"
         android:textColor="@color/white"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:textColorHint="@color/lighterGray"/>
 
     <ImageView
         android:id="@+id/runIcon"
