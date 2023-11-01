@@ -17,31 +17,36 @@
         android:id="@+id/notebook_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_below="@id/appLogo"
         android:layout_above="@+id/addNotebookButton"
+        android:layout_below="@id/appLogo"
         android:layout_centerInParent="true"
-        android:scrollbars="vertical"
-        android:scrollbarThumbVertical="@drawable/orange_circular_bg"
+        android:layout_weight="1"
+        android:fadeScrollbars="false"
         android:scrollbarSize="4dp"
         android:scrollbarStyle="insideInset"
-        android:fadeScrollbars="false">
+        android:scrollbarThumbVertical="@drawable/orange_circular_bg"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:id="@+id/notebook_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_edittext_bg"
-            android:padding="15dp"
-            android:orientation="vertical"
             android:elevation="10dp"
-            android:maxHeight="@dimen/max_height">
+            android:orientation="vertical"
+            android:padding="15dp">
+            <!--            android:maxHeight="@dimen/max_height">-->
 
             <include layout="@layout/notebook_item" />
+
             <include layout="@layout/notebook_item" />
+
             <include layout="@layout/notebook_item" />
+
             <include layout="@layout/notebook_item" />
+
             <include layout="@layout/notebook_item" />
+
             <include layout="@layout/notebook_item" />
 
         </LinearLayout>
