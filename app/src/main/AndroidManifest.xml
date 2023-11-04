@@ -19,6 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.NotebookActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+<!--todo jakiś styl dodajemy do tego?-->
+            <!-- You can specify intent filters if this activity is accessible via certain actions -->
+        </activity>
     </application>
 
 </manifest>
