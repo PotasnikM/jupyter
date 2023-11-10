@@ -65,12 +65,12 @@ class MainActivity : ComponentActivity() {
         } else {
             file.writeText(
                 """
-                {
+                    {
                     "cells": [],
                     "metadata": {},
                     "nbformat": 4,
                     "nbformat_minor": 5
-                }
+                    }
                 """.trimIndent()
             )
             true
