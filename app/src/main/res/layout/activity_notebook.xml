@@ -35,13 +35,6 @@
                 android:layout_weight="1" />
 
             <!-- Right Drop-down Button -->
-            <ImageButton
-                android:id="@+id/optionsButton"
-                android:layout_width="48dp"
-                android:layout_height="wrap_content"
-                android:background="@color/darkGray"
-                android:src="@drawable/round_settings_24"
-                android:contentDescription="settings" />
         </LinearLayout>
 
         <TextView

@@ -4,11 +4,12 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import io.noties.markwon.Markwon
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jupyter.R
 
@@ -94,7 +95,11 @@ class CellsAdapter(
         } else {
             view.findViewById(R.id.textInput)
         }
-
+        private val markdownPreview: TextView? = if (typeCell == "code") {
+             null
+        } else {
+            view.findViewById(R.id.markdownPreview)}
+        private val markwon: Markwon = Markwon.create(view.context)
         private val handler = Handler(Looper.getMainLooper())
         private val runnable = Runnable {
             onCellContentChanged(adapterPosition, textInput.text.toString())
@@ -112,9 +117,18 @@ class CellsAdapter(
 
                 override fun afterTextChanged(s: Editable?) {
                     handler.removeCallbacks(runnable)
+                    if (typeCell == "markdown") {
+                        updateMarkdownPreview(s.toString())
+                    }
                     handler.postDelayed(runnable, 1000) // Opóźnienie o 1 sekundę
                 }
             })
+        }
+
+        private fun updateMarkdownPreview(markdownText: String) {
+            if (markdownPreview != null) {
+                markwon.setMarkdown(markdownPreview, markdownText)
+            }
         }
 
         fun bind(cell: NotebookActivity.Cell) {
