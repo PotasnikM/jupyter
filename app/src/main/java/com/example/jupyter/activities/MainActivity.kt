@@ -1,29 +1,30 @@
 package com.example.jupyter.activities
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.activity.ComponentActivity
+import NotebookAdapter
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.jupyter.R
 import java.io.File
 
 class MainActivity : ComponentActivity() {
     private lateinit var createButton: ImageButton
-    private lateinit var listView: LinearLayout
+    private lateinit var notebookList: RecyclerView
+    private lateinit var adapter: NotebookAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         createButton = findViewById(R.id.addNotebookButton)
-        listView = findViewById(R.id.notebook_list)
+        notebookList = findViewById(R.id.notebook_list)
 
         createButton.setOnClickListener {
             promptForNotebookNameAndCreateFile()
@@ -31,7 +32,6 @@ class MainActivity : ComponentActivity() {
 
         listIpynbFiles()
     }
-
     private fun promptForNotebookNameAndCreateFile() {
         val input = EditText(this)
         AlertDialog.Builder(this).apply {
@@ -80,30 +80,35 @@ class MainActivity : ComponentActivity() {
     private fun listIpynbFiles() {
         val files = filesDir.listFiles { _, name -> name.endsWith(".ipynb") } ?: return
 
-        listView.removeAllViews()
-
-        val inflater = LayoutInflater.from(this)
-        files.forEach { file ->
-            val notebookView = inflater.inflate(R.layout.notebook_item, listView, false).apply {
-                findViewById<TextView>(R.id.notebook_name).text = file.name
-
-                // Set an OnClickListener on the entire notebook view or a specific button/view within it
-                setOnClickListener {
-                    // Create an intent to start NotebookActivity
-                    val intent = Intent(this@MainActivity, NotebookActivity::class.java)
-                    // Optionally pass data to NotebookActivity, such as the file name or path
-                    intent.putExtra("NOTEBOOK_FILE_PATH", file.absolutePath)
-                    startActivity(intent)
-                }
-
-                val deleteButton = findViewById<ImageButton>(R.id.delete_notebook_button)
-                deleteButton.setOnClickListener {
-                    file.delete()
-                    listIpynbFiles() // Refresh the list after deletion
-                }
+        adapter = NotebookAdapter(files.toList(),
+            onNotebookClick = { file ->
+                openNotebook(file)
+            },
+            onNotebookDelete = { file ->
+                file.delete()
+                listIpynbFiles()
             }
-            listView.addView(notebookView)
-        }
+        )
+
+        notebookList.layoutManager = LinearLayoutManager(this)
+        notebookList.adapter = adapter
+
+        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                adapter.removeItem(viewHolder.adapterPosition)
+            }
+        })
+
+        itemTouchHelper.attachToRecyclerView(notebookList)
     }
 
+    private fun openNotebook(file: File) {
+        val intent = Intent(this, NotebookActivity::class.java)
+        intent.putExtra("NOTEBOOK_FILE_PATH", file.absolutePath)
+        startActivity(intent)
+    }
 }

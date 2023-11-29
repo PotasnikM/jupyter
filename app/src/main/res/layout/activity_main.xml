@@ -13,44 +13,17 @@
         android:src="@mipmap/jupyter_icon_round"
         android:layout_marginBottom="16dp" />
 
-    <ScrollView
-        android:id="@+id/notebook_container"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notebook_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_above="@+id/addNotebookButton"
         android:layout_below="@id/appLogo"
-        android:layout_centerInParent="true"
-        android:layout_weight="1"
-        android:fadeScrollbars="false"
-        android:scrollbarSize="4dp"
-        android:scrollbarStyle="insideInset"
-        android:scrollbarThumbVertical="@drawable/orange_circular_bg"
-        android:scrollbars="vertical">
-
-        <LinearLayout
-            android:id="@+id/notebook_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_edittext_bg"
-            android:elevation="10dp"
-            android:orientation="vertical"
-            android:padding="15dp">
-            <!--            android:maxHeight="@dimen/max_height">-->
-
-            <include layout="@layout/notebook_item" />
-
-            <include layout="@layout/notebook_item" />
-
-            <include layout="@layout/notebook_item" />
-
-            <include layout="@layout/notebook_item" />
-
-            <include layout="@layout/notebook_item" />
-
-            <include layout="@layout/notebook_item" />
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_above="@+id/addNotebookButton"
+        android:padding="15dp"
+        android:clipToPadding="false"
+        android:background="@drawable/rounded_edittext_bg"
+        android:elevation="10dp"
+        android:scrollbars="vertical"/>
 
     <ImageButton
         android:id="@+id/addNotebookButton"
