@@ -4,10 +4,12 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import io.noties.markwon.Markwon
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jupyter.R
@@ -95,7 +97,7 @@ class CellsAdapter(
         private val textInput: EditText? = if (typeCell == "markdown") {
             view.findViewById(R.id.textInput)
         } else {
-            null
+            view.findViewById(R.id.textInput)
         }
 
         private val transparentEditText: EditText? = if (typeCell == "code") {
@@ -109,7 +111,11 @@ class CellsAdapter(
         } else {
             null
         }
-
+        private val markdownPreview: TextView? = if (typeCell == "code") {
+             null
+        } else {
+            view.findViewById(R.id.markdownPreview)}
+        private val markwon: Markwon = Markwon.create(view.context)
         private val handler = Handler(Looper.getMainLooper())
         private val runnable = Runnable {
             val content = when (typeCell) {
@@ -126,7 +132,10 @@ class CellsAdapter(
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     handler.removeCallbacks(runnable)
-                    handler.postDelayed(runnable, 1000) // Delay of 1 second
+                    if (typeCell == "markdown") {
+                        updateMarkdownPreview(s.toString())
+                    }
+                    handler.postDelayed(runnable, 1000)
                 }
             })
 
@@ -137,15 +146,19 @@ class CellsAdapter(
                     val highlightedCode = CodeHighlighter.highlight("python", codeString, ColorTheme.DEFAULT.theme())
                     codeView?.setCode(highlightedCode)
                 }
+
                 override fun afterTextChanged(s: Editable?) {
                     handler.removeCallbacks(runnable)
                     handler.postDelayed(runnable, 1000) // Delay of 1 second
                 }
             })
-
-
         }
 
+        private fun updateMarkdownPreview(markdownText: String) {
+            if (markdownPreview != null) {
+                markwon.setMarkdown(markdownPreview, markdownText)
+            }
+        }
 
         fun bind(cell: NotebookActivity.Cell) {
             when (typeCell) {

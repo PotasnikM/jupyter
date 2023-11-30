@@ -17,4 +17,14 @@
         android:hint="Enter your text here..."
         android:textColorHint="@color/lighterGray"/>
 
+    <TextView
+        android:id="@+id/markdownPreview"
+        style="@style/CellEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textInput"
+        android:hint="Your text will be here"
+        android:minHeight="48dp"
+        android:textColorHint="@color/lighterGray" />
+
 </RelativeLayout>
