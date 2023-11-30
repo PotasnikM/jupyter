@@ -10,7 +10,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/KodeNote"
+        android:src="@drawable/kodenote"
         android:layout_marginBottom="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView
