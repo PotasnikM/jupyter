@@ -41,12 +41,13 @@
             android:id="@+id/notebookTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Notebook Name"
-            android:textSize="24sp"
-            android:textColor="@color/white"
             android:layout_below="@id/header"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins"
+            android:text="Your Notebook Name"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
         <!-- RecyclerView to display the list of cells -->
         <androidx.recyclerview.widget.RecyclerView
