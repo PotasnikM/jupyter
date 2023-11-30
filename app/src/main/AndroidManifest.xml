@@ -8,6 +8,8 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:supportsRtl="true"
+        tools:replace="android:label"
+        android:label="KodeNote"
         android:theme="@style/Theme.Jupyter"
         tools:targetApi="31">
         <activity

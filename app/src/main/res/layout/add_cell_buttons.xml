@@ -12,12 +12,16 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Add markdown"
-        android:layout_marginEnd="8dp" />
+        android:background="@drawable/button_custom"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/orange" />
 
     <Button
         android:id="@+id/addCodeCellButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Add code" />
+        android:text="Add code"
+        android:background="@drawable/button_custom"
+        android:textColor="@color/orange" />
 </LinearLayout>
