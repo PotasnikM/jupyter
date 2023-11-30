@@ -88,8 +88,16 @@ class MainActivity : ComponentActivity() {
                 openNotebook(file)
             },
             onNotebookDelete = { file ->
-                file.delete()
-                listIpynbFiles()
+                AlertDialog.Builder(this@MainActivity).apply {
+                    setTitle("Confirm Deletion")
+                    setMessage("Are you sure you want to delete this notebook?")
+                    setPositiveButton("Yes") { _, _ ->
+                        file.delete()
+                        listIpynbFiles()
+                        Toast.makeText(this@MainActivity, "Notebook deleted", Toast.LENGTH_SHORT).show()
+                    }
+                    setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+                }.show()
             }
         )
 

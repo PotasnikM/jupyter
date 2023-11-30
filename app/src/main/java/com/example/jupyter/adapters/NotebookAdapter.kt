@@ -18,14 +18,7 @@ class NotebookAdapter(private val notebooks: List<File>, private val onNotebookC
             itemView.setOnClickListener { onNotebookClick(notebook) }
 
             deleteButton.setOnClickListener {
-                AlertDialog.Builder(itemView.context).apply {
-                    setTitle("Confirm Deletion")
-                    setMessage("Are you sure you want to delete this notebook?")
-                    setPositiveButton("Yes") { _, _ ->
-                        onNotebookDelete(notebook)
-                    }
-                    setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
-                }.show()
+                onNotebookDelete(notebook)
             }
         }
     }
