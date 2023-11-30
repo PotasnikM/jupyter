@@ -4,4 +4,5 @@
     <color name="white">#FFFFFF</color>
     <color name="lightGray">#303030</color>
     <color name="lighterGray">#979cb0</color>
+    <color name="jupyter_icon_background">#202020</color>
 </resources>
