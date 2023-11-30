@@ -4,13 +4,18 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jupyter.R
+import io.github.kbiakov.codeview.CodeView
+import io.github.kbiakov.codeview.highlight.CodeHighlighter
+import io.github.kbiakov.codeview.highlight.ColorTheme
+import org.intellij.lang.annotations.Language
+
 
 class CellsAdapter(
     private val cells: MutableList<NotebookActivity.Cell>,
@@ -81,44 +86,75 @@ class CellsAdapter(
         }
     }
 
-
-
     override fun getItemCount(): Int {
         // +1 dla wiersza z przyciskami dodawania na górze, pozostałe dla komórek i ich przycisków dodawania
         return 1 + cells.size * 2
     }
 
-    class CellViewHolder(val view: View, val typeCell: String, val onCellContentChanged: (Int, String) -> Unit) : RecyclerView.ViewHolder(view) {
-        private val textInput: EditText = if (typeCell == "code") {
-            view.findViewById(R.id.codeInput)
-        } else {
+    class CellViewHolder(view: View, val typeCell: String, val onCellContentChanged: (Int, String) -> Unit) : RecyclerView.ViewHolder(view) {
+        private val textInput: EditText? = if (typeCell == "markdown") {
             view.findViewById(R.id.textInput)
+        } else {
+            null
+        }
+
+        private val transparentEditText: EditText? = if (typeCell == "code") {
+            view.findViewById(R.id.transparentEditText)
+        } else {
+            null
+        }
+
+        private val codeView: CodeView? = if (typeCell == "code") {
+            view.findViewById(R.id.codeView)
+        } else {
+            null
         }
 
         private val handler = Handler(Looper.getMainLooper())
         private val runnable = Runnable {
-            onCellContentChanged(adapterPosition, textInput.text.toString())
+            val content = when (typeCell) {
+                "markdown" -> textInput?.text.toString()
+                "code" -> transparentEditText?.text.toString() // Get content from EditText
+                else -> ""
+            }
+            onCellContentChanged(adapterPosition, content)
         }
 
         init {
-            textInput.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                    // Nie wymagane w tym przypadku
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    // Nie wymagane w tym przypadku
-                }
-
+            textInput?.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     handler.removeCallbacks(runnable)
-                    handler.postDelayed(runnable, 1000) // Opóźnienie o 1 sekundę
+                    handler.postDelayed(runnable, 1000) // Delay of 1 second
                 }
             })
+
+            transparentEditText?.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    val codeString = s.toString()
+                    val highlightedCode = CodeHighlighter.highlight("python", codeString, ColorTheme.DEFAULT.theme())
+                    codeView?.setCode(highlightedCode)
+                }
+                override fun afterTextChanged(s: Editable?) {
+                    handler.removeCallbacks(runnable)
+                    handler.postDelayed(runnable, 1000) // Delay of 1 second
+                }
+            })
+
+
         }
 
+
         fun bind(cell: NotebookActivity.Cell) {
-            textInput.setText(cell.content)
+            when (typeCell) {
+                "markdown" -> textInput?.setText(cell.content)
+                "code" -> {
+                    transparentEditText?.setText(cell.content)
+                    codeView?.setCode(cell.content)
+                }
+            }
         }
     }
 

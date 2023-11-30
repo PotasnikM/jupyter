@@ -6,34 +6,27 @@
     android:elevation="7dp"
     android:padding="16dp">
 
+    <io.github.kbiakov.codeview.CodeView
+        android:id="@+id/codeView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:visibility="visible"/>
 
     <EditText
-        android:id="@+id/codeInput"
-        android:layout_width="295dp"
+        android:id="@+id/transparentEditText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightGray"
-        android:elevation="5dp"
-        android:hint="Enter your code here..."
-        android:maxWidth="100dp"
-        android:minHeight="48dp"
-        android:padding="8dp"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:textColorHint="@color/lighterGray"/>
-
-    <ImageView
-        android:id="@+id/runIcon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/codeInput"
-        android:padding="14dp"
-        android:src="@drawable/round_play_circle_24"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
+        android:layout_alignTop="@id/codeView"
+        android:layout_alignBottom="@id/codeView"
+        android:paddingLeft="37dp"
+        android:layout_marginLeft="9dp"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/transparent"
+        android:cursorVisible="true"
         android:focusable="true"
-        android:contentDescription="run"/>
-
-
-
+        android:focusableInTouchMode="true"
+        android:inputType="textMultiLine"
+        android:textSize="13.5dp"
+        android:visibility="visible"/>
 </RelativeLayout>

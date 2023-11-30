@@ -107,7 +107,6 @@ class NotebookActivity : AppCompatActivity() {
 
 
 
-
     private fun loadCellsFromFile() {
         val fileContent = File(filePath).readText()
         val json = JSONObject(fileContent)

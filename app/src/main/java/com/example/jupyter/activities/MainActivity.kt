@@ -12,6 +12,7 @@ import android.content.Intent
 import android.widget.EditText
 import android.widget.Toast
 import com.example.jupyter.R
+import io.github.kbiakov.codeview.classifier.CodeProcessor
 import java.io.File
 
 class MainActivity : ComponentActivity() {
@@ -21,6 +22,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        CodeProcessor.init(this) // auto-detekcja jezyka programowania
 
         createButton = findViewById(R.id.addNotebookButton)
         listView = findViewById(R.id.notebook_list)
